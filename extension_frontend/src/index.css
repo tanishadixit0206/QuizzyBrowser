@@ -6,7 +6,10 @@ body{
   justify-content: center;
   color: black;
   background-color: white;
-  height: 100vh;
+  height: 600px;
+  width: 480px;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
 }
