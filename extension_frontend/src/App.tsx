@@ -7,7 +7,7 @@ import Questions from './pages/Questions';
 function App() {
   return (
     <Router>
-      <div className='min-w-[400px]'>
+      <div className='min-w-96'>
         
         <nav className='flex space-between'>
           <Link to="/">Home</Link>
