@@ -46,55 +46,55 @@ const apiResponse: ApiResponse = {
       correctAnswer: "H2O",
       explanation: "H2O represents water, consisting of two hydrogen atoms bonded to one oxygen atom."
     },
-    {
-      id: 4,
-      question: "Who wrote 'Romeo and Juliet'?",
-      answers: ["William Shakespeare", "Charles Dickens", "J.K. Rowling", "George Orwell"],
-      correctAnswer: "William Shakespeare",
-      explanation: "William Shakespeare, an English playwright, authored 'Romeo and Juliet,' a famous romantic tragedy."
-    },
-    {
-      id: 5,
-      question: "Which is the smallest prime number?",
-      answers: ["1", "2", "3", "5"],
-      correctAnswer: "2",
-      explanation: "2 is the smallest prime number as it is only divisible by 1 and itself and is also the only even prime number."
-    },
-    {
-      id: 6,
-      question: "What is the square root of 64?",
-      answers: ["6", "7", "8", "9"],
-      correctAnswer: "8",
-      explanation: "The square root of 64 is 8 because 8 × 8 = 64."
-    },
-    {
-      id: 7,
-      question: "What is the largest mammal?",
-      answers: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
-      correctAnswer: "Blue Whale",
-      explanation: "The Blue Whale is the largest mammal, growing up to 100 feet long and weighing over 200 tons."
-    },
-    {
-      id: 8,
-      question: "Which gas do plants absorb for photosynthesis?",
-      answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-      correctAnswer: "Carbon Dioxide",
-      explanation: "Plants absorb carbon dioxide from the atmosphere to produce oxygen and glucose during photosynthesis."
-    },
-    {
-      id: 9,
-      question: "Who painted the Mona Lisa?",
-      answers: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
-      correctAnswer: "Leonardo da Vinci",
-      explanation: "Leonardo da Vinci, an Italian Renaissance artist, painted the Mona Lisa, one of the most famous artworks in the world."
-    },
-    {
-      id: 10,
-      question: "What is the value of Pi up to two decimal places?",
-      answers: ["3.12", "3.14", "3.16", "3.18"],
-      correctAnswer: "3.14",
-      explanation: "Pi is an irrational number used to calculate circles' properties, commonly approximated as 3.14."
-    }
+    // {
+    //   id: 4,
+    //   question: "Who wrote 'Romeo and Juliet'?",
+    //   answers: ["William Shakespeare", "Charles Dickens", "J.K. Rowling", "George Orwell"],
+    //   correctAnswer: "William Shakespeare",
+    //   explanation: "William Shakespeare, an English playwright, authored 'Romeo and Juliet,' a famous romantic tragedy."
+    // },
+    // {
+    //   id: 5,
+    //   question: "Which is the smallest prime number?",
+    //   answers: ["1", "2", "3", "5"],
+    //   correctAnswer: "2",
+    //   explanation: "2 is the smallest prime number as it is only divisible by 1 and itself and is also the only even prime number."
+    // },
+    // {
+    //   id: 6,
+    //   question: "What is the square root of 64?",
+    //   answers: ["6", "7", "8", "9"],
+    //   correctAnswer: "8",
+    //   explanation: "The square root of 64 is 8 because 8 × 8 = 64."
+    // },
+    // {
+    //   id: 7,
+    //   question: "What is the largest mammal?",
+    //   answers: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+    //   correctAnswer: "Blue Whale",
+    //   explanation: "The Blue Whale is the largest mammal, growing up to 100 feet long and weighing over 200 tons."
+    // },
+    // {
+    //   id: 8,
+    //   question: "Which gas do plants absorb for photosynthesis?",
+    //   answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+    //   correctAnswer: "Carbon Dioxide",
+    //   explanation: "Plants absorb carbon dioxide from the atmosphere to produce oxygen and glucose during photosynthesis."
+    // },
+    // {
+    //   id: 9,
+    //   question: "Who painted the Mona Lisa?",
+    //   answers: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+    //   correctAnswer: "Leonardo da Vinci",
+    //   explanation: "Leonardo da Vinci, an Italian Renaissance artist, painted the Mona Lisa, one of the most famous artworks in the world."
+    // },
+    // {
+    //   id: 10,
+    //   question: "What is the value of Pi up to two decimal places?",
+    //   answers: ["3.12", "3.14", "3.16", "3.18"],
+    //   correctAnswer: "3.14",
+    //   explanation: "Pi is an irrational number used to calculate circles' properties, commonly approximated as 3.14."
+    // }
   ]
 };
 
@@ -108,6 +108,7 @@ const QuestionsPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showBack, setShowBack] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   const questions = apiResponse.questions;
 
@@ -126,9 +127,71 @@ const QuestionsPage = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      console.log("Quiz completed. Answers:", selectedAnswers);
+      setQuizCompleted(true);
     }
   };
+
+
+  const calculateScore = () => {
+    return selectedAnswers.filter((answer, index) => 
+      answer === questions[index].correctAnswer
+    ).length;
+  };
+
+  if (quizCompleted) {
+    const score = calculateScore();
+    const totalQuestions = questions.length;
+    const percentageScore = ((score / totalQuestions) * 100).toFixed(2);
+
+    return (
+      <div className="px-6 py-4 flex flex-col items-center h-screen bg-gray-100 ">
+        <div className="bg-white shadow-lg rounded-lg p-8 text-center max-w-md w-full">
+          <h1 className="text-3xl font-bold mb-4 text-blue-600">Quiz Completed!</h1>
+          <div className="mb-6">
+            <p className="text-xl mb-2">Your Score:</p>
+            <div className="text-4xl font-bold text-green-600">
+              {score} / {totalQuestions}
+            </div>
+            <p className="text-lg mt-2 text-gray-700">
+              {percentageScore}%
+            </p>
+          </div>
+          <div className="space-y-4">
+            {questions.map((question, index) => (
+              <div 
+                key={question.id} 
+                className={`p-3 rounded-lg ${
+                  selectedAnswers[index] === question.correctAnswer 
+                    ? 'bg-green-100' 
+                    : 'bg-red-100'
+                }`}
+              >
+                <p className="font-semibold mb-1">{question.question}</p>
+                <p className="text-sm">
+                  Your Answer: <span className={
+                    selectedAnswers[index] === question.correctAnswer 
+                      ? 'text-green-600' 
+                      : 'text-red-600'
+                  }>
+                    {selectedAnswers[index] || 'No answer'}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600">
+                  Correct Answer: {question.correctAnswer}
+                </p>
+              </div>
+            ))}
+          </div>
+          <button 
+            onClick={() => navigate('/')}
+            className="mt-6 bg-blue-600 text-lg text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -152,17 +215,14 @@ const QuestionsPage = () => {
       />
       {showBack && (
         <button
-          className="mt-6 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+          className="mt-6 bg-blue-600 text-lg text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
           onClick={handleNext}
         >
           {currentQuestionIndex < questions.length - 1 ? "Next" : "Finish"}
         </button>
       )}
     </div>
-   
-  
   );
 };
-
 
 export default QuestionsPage;

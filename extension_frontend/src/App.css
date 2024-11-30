@@ -3,11 +3,11 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  
   color: black;
   background-color: white;
   height: 600px;
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 480px;
   margin: 0;
   padding: 0;
