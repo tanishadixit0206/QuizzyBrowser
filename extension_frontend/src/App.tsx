@@ -1,27 +1,26 @@
+import React from 'react'
+import { MemoryRouter, Routes,Route } from 'react-router-dom'
+import LandingPage from './pages/LandingPage';
+import PreviousQuestions from './pages/PreviousQuestions';
+import StartInterview from './pages/StartInterview';
+import { useTestStartContext } from './context/testContext';
 
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import Questions from './pages/Questions';
+const App:React.FC = () =>{
+  const {testStart} = useTestStartContext();
 
-
-function App() {
-  return (
-    <Router>
-      <div className='min-w-96'>
-        
-        <nav className='flex space-between'>
-          <Link to="/">Home</Link>
-          <Link to="/questions">Questions</Link>
-        </nav>
-
-        
+  return(
+    <div className='App'>
+      <header className='App-header'>
+        <MemoryRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/questions" element={<Questions />} />
+            <Route element={<LandingPage />} path='/' /> 
+            <Route element={<PreviousQuestions />} path='/prevQ'/>
+            <Route element={testStart === true ? <StartInterview /> : <LandingPage />} path='/questions'/>
         </Routes>
-      </div>
-    </Router>
-  );
+        </MemoryRouter>
+      </header>
+    </div>
+  )
 }
 
 export default App;
