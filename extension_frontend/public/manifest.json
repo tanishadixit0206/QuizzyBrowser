@@ -1,0 +1,17 @@
+{
+    "manifest_version":3,
+    "version":"1.0.0",
+    "name":"My Vite Extension",
+    "action":{
+      "default_popup":"index.html"
+    },
+    "permissions":[
+      "scripting",
+      "aiLanguageModelOriginTrial"
+    ],
+    "trial_tokens": ["AhqVS+OIdi4KVHGAGRqcQCVKsirWJW/PS4tWSlfY4n7Fo4ZVUcYtF5v0Qi/DOeiY4rUpKo9NENcKJ2EmP19GmQ8AAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vY2ptZWxoaWVscGRkZmRrYm9tamFwZGJnaW1lYmpkbGIiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"],
+    "host_permissions":[
+      "http://*/*",
+      "https://*/*"
+    ]
+  }
