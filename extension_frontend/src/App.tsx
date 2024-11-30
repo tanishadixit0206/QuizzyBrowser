@@ -15,7 +15,7 @@ const App:React.FC = () =>{
         <Routes>
             <Route element={<LandingPage />} path='/' /> 
             <Route element={<PreviousQuestions />} path='/prevQ'/>
-            <Route element={testStart === true ? <StartInterview /> : <LandingPage />} path='/start'/>
+            <Route element={testStart === true ? <StartInterview /> : <LandingPage />} path='/questions'/>
         </Routes>
         </MemoryRouter>
       </header>

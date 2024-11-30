@@ -1,6 +1,6 @@
 @import './styles/LandingPage.css';
 @import './styles//PreviousQuestionTile.css';
-body{
+body {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +11,5 @@ body{
   width: 480px;
   margin: 0;
   padding: 0;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
 }
-
