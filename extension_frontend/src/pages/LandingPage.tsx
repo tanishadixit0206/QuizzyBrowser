@@ -1,12 +1,16 @@
 import {useNavigate } from "react-router-dom";
+import { useTestStartContext } from "../context/testContext";
 
 const LandingPage:React.FC = () =>{
+  const {testStart, updateTestStart} = useTestStartContext();
   const navigate = useNavigate();
   function prevQues(){
     navigate('/prevQ')
   }
 
   function startInterview(){
+    console.log(testStart);
+    updateTestStart(true);
     navigate('/interview')
   }
 

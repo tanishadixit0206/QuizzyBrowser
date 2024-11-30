@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter, Routes,Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage';
-import PreviousQuestions from './pages/PreviousBookmarks';
+import PreviousQuestions from './pages/PreviousQuestions';
 import StartInterview from './pages/StartInterview';
 import { useTestStartContext } from './context/testContext';
 
