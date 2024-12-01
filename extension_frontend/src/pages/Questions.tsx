@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionTile from "../components/QuestionTile";
+import "../styles/Questions.css"
 
 // Define TypeScript types
 type Question = {
@@ -103,7 +104,6 @@ console.log(JSON.stringify(apiResponse, null, 2));
 
 
 const QuestionsPage = () => {
-
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
@@ -131,7 +131,6 @@ const QuestionsPage = () => {
     }
   };
 
-
   const calculateScore = () => {
     return selectedAnswers.filter((answer, index) => 
       answer === questions[index].correctAnswer
@@ -144,7 +143,7 @@ const QuestionsPage = () => {
     const percentageScore = ((score / totalQuestions) * 100).toFixed(2);
 
     return (
-      <div className="px-6 py-4 flex flex-col items-center h-screen bg-gray-100 ">
+      <div className="flex flex-col items-center h-screen bg-gray-100 p-4">
         <div className="bg-white shadow-lg rounded-lg p-8 text-center max-w-md w-full">
           <h1 className="text-3xl font-bold mb-4 text-blue-600">Quiz Completed!</h1>
           <div className="mb-6">
@@ -196,7 +195,7 @@ const QuestionsPage = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="flex flex-col h-auto w-auto px-4 py-4  bg-gray-100">
+    <div className="flex flex-col h-auto w-auto px-4 py-4 bg-gray-100">
       <div className="QuesHeadingDiv">
         <h1 className="QuestionsHeading">Questions - {apiResponse.title}</h1>
         <svg onClick={()=>{
@@ -226,3 +225,4 @@ const QuestionsPage = () => {
 };
 
 export default QuestionsPage;
+
