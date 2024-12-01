@@ -44,7 +44,7 @@ export default async function getQuestions(text:string){
         const result=await session.prompt(`Read the following text - ${text}
 
 
-Now generate 10 objective questions with correct option and explanation from the above `)
+Now generate 10 objective questions from the above outputting per question, the question itself, the four options, the correct answer and the explanation. You must output these 7 elements per question.`)
 console.log("Result:",result);
         return result;
     }else{

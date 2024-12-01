@@ -25,78 +25,79 @@ type ApiResponse = {
 // Mock data with quiz title
 const apiResponse: ApiResponse = {
   title: "General Knowledge Quiz",
-  questions: [
-    {
-      id: 1,
-      question: "What is the capital of France?",
-      answers: ["Paris", "London", "Berlin", "Rome"],
-      correctAnswer: "Paris",
-      explanation: "Paris is the capital city of France, known for its history, culture, and landmarks like the Eiffel Tower."
-    },
-    {
-      id: 2,
-      question: "Which planet is known as the Red Planet?",
-      answers: ["Earth", "Mars", "Venus", "Jupiter"],
-      correctAnswer: "Mars",
-      explanation: "Mars is called the Red Planet due to its reddish appearance, caused by iron oxide (rust) on its surface."
-    },
-    {
-      id: 3,
-      question: "What is the chemical symbol for water?",
-      answers: ["H2O", "O2", "CO2", "H2"],
-      correctAnswer: "H2O",
-      explanation: "H2O represents water, consisting of two hydrogen atoms bonded to one oxygen atom."
-    },
-    // {
-    //   id: 4,
-    //   question: "Who wrote 'Romeo and Juliet'?",
-    //   answers: ["William Shakespeare", "Charles Dickens", "J.K. Rowling", "George Orwell"],
-    //   correctAnswer: "William Shakespeare",
-    //   explanation: "William Shakespeare, an English playwright, authored 'Romeo and Juliet,' a famous romantic tragedy."
-    // },
-    // {
-    //   id: 5,
-    //   question: "Which is the smallest prime number?",
-    //   answers: ["1", "2", "3", "5"],
-    //   correctAnswer: "2",
-    //   explanation: "2 is the smallest prime number as it is only divisible by 1 and itself and is also the only even prime number."
-    // },
-    // {
-    //   id: 6,
-    //   question: "What is the square root of 64?",
-    //   answers: ["6", "7", "8", "9"],
-    //   correctAnswer: "8",
-    //   explanation: "The square root of 64 is 8 because 8 × 8 = 64."
-    // },
-    // {
-    //   id: 7,
-    //   question: "What is the largest mammal?",
-    //   answers: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
-    //   correctAnswer: "Blue Whale",
-    //   explanation: "The Blue Whale is the largest mammal, growing up to 100 feet long and weighing over 200 tons."
-    // },
-    // {
-    //   id: 8,
-    //   question: "Which gas do plants absorb for photosynthesis?",
-    //   answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-    //   correctAnswer: "Carbon Dioxide",
-    //   explanation: "Plants absorb carbon dioxide from the atmosphere to produce oxygen and glucose during photosynthesis."
-    // },
-    // {
-    //   id: 9,
-    //   question: "Who painted the Mona Lisa?",
-    //   answers: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
-    //   correctAnswer: "Leonardo da Vinci",
-    //   explanation: "Leonardo da Vinci, an Italian Renaissance artist, painted the Mona Lisa, one of the most famous artworks in the world."
-    // },
-    // {
-    //   id: 10,
-    //   question: "What is the value of Pi up to two decimal places?",
-    //   answers: ["3.12", "3.14", "3.16", "3.18"],
-    //   correctAnswer: "3.14",
-    //   explanation: "Pi is an irrational number used to calculate circles' properties, commonly approximated as 3.14."
-    // }
-  ]
+  questions:[],
+  // questions: [
+  //   {
+  //     id: 1,
+  //     question: "What is the capital of France?",
+  //     answers: ["Paris", "London", "Berlin", "Rome"],
+  //     correctAnswer: "Paris",
+  //     explanation: "Paris is the capital city of France, known for its history, culture, and landmarks like the Eiffel Tower."
+  //   },
+  //   {
+  //     id: 2,
+  //     question: "Which planet is known as the Red Planet?",
+  //     answers: ["Earth", "Mars", "Venus", "Jupiter"],
+  //     correctAnswer: "Mars",
+  //     explanation: "Mars is called the Red Planet due to its reddish appearance, caused by iron oxide (rust) on its surface."
+  //   },
+  //   {
+  //     id: 3,
+  //     question: "What is the chemical symbol for water?",
+  //     answers: ["H2O", "O2", "CO2", "H2"],
+  //     correctAnswer: "H2O",
+  //     explanation: "H2O represents water, consisting of two hydrogen atoms bonded to one oxygen atom."
+  //   },
+  //   // {
+  //   //   id: 4,
+  //   //   question: "Who wrote 'Romeo and Juliet'?",
+  //   //   answers: ["William Shakespeare", "Charles Dickens", "J.K. Rowling", "George Orwell"],
+  //   //   correctAnswer: "William Shakespeare",
+  //   //   explanation: "William Shakespeare, an English playwright, authored 'Romeo and Juliet,' a famous romantic tragedy."
+  //   // },
+  //   // {
+  //   //   id: 5,
+  //   //   question: "Which is the smallest prime number?",
+  //   //   answers: ["1", "2", "3", "5"],
+  //   //   correctAnswer: "2",
+  //   //   explanation: "2 is the smallest prime number as it is only divisible by 1 and itself and is also the only even prime number."
+  //   // },
+  //   // {
+  //   //   id: 6,
+  //   //   question: "What is the square root of 64?",
+  //   //   answers: ["6", "7", "8", "9"],
+  //   //   correctAnswer: "8",
+  //   //   explanation: "The square root of 64 is 8 because 8 × 8 = 64."
+  //   // },
+  //   // {
+  //   //   id: 7,
+  //   //   question: "What is the largest mammal?",
+  //   //   answers: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+  //   //   correctAnswer: "Blue Whale",
+  //   //   explanation: "The Blue Whale is the largest mammal, growing up to 100 feet long and weighing over 200 tons."
+  //   // },
+  //   // {
+  //   //   id: 8,
+  //   //   question: "Which gas do plants absorb for photosynthesis?",
+  //   //   answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+  //   //   correctAnswer: "Carbon Dioxide",
+  //   //   explanation: "Plants absorb carbon dioxide from the atmosphere to produce oxygen and glucose during photosynthesis."
+  //   // },
+  //   // {
+  //   //   id: 9,
+  //   //   question: "Who painted the Mona Lisa?",
+  //   //   answers: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+  //   //   correctAnswer: "Leonardo da Vinci",
+  //   //   explanation: "Leonardo da Vinci, an Italian Renaissance artist, painted the Mona Lisa, one of the most famous artworks in the world."
+  //   // },
+  //   // {
+  //   //   id: 10,
+  //   //   question: "What is the value of Pi up to two decimal places?",
+  //   //   answers: ["3.12", "3.14", "3.16", "3.18"],
+  //   //   correctAnswer: "3.14",
+  //   //   explanation: "Pi is an irrational number used to calculate circles' properties, commonly approximated as 3.14."
+  //   // }
+  // ]
 };
 
 // Mock API Response Example
@@ -105,7 +106,78 @@ console.log(JSON.stringify(apiResponse, null, 2));
 
 const QuestionsPage = () => {
   const getGeneratedQuestions=async (text:string)=>{
-    return await getQuestions(text);
+    const questionsText= await getQuestions(text);
+    const question1:Question={
+      id:1,
+      question:questionsText?.split("1.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[1].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[1].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[1].split('\n')}`,
+    }
+    const question2:Question={
+      id:2,
+      question:questionsText?.split("2.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[2].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[2].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[2].split('\n')}`,
+    }
+    const question3:Question={
+      id:1,
+      question:questionsText?.split("3.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[3].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[3].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[3].split('\n')}`,
+    }
+    const question4:Question={
+      id:1,
+      question:questionsText?.split("4.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[4].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[4].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[4].split('\n')}`,
+    }
+    const question5:Question={
+      id:1,
+      question:questionsText?.split("5.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[5].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[5].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[5].split('\n')}`,
+    }
+    const question6:Question={
+      id:1,
+      question:questionsText?.split("6.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[6].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[6].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[6].split('\n')}`,
+    }
+    const question7:Question={
+      id:1,
+      question:questionsText?.split("7.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[7].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[7].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[7].split('\n')}`,
+    }
+    const question8:Question={
+      id:1,
+      question:questionsText?.split("8.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[8].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[8].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[8].split('\n')}`,
+    }
+    const question9:Question={
+      id:1,
+      question:questionsText?.split("9.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[9].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[9].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[9].split('\n')}`,
+    }
+    const question10:Question={
+      id:1,
+      question:questionsText?.split("10.")[1].split("?")[0]+"?",
+      answers:[`${questionsText?.split("a) ")[10].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
+      correctAnswer:`${questionsText?.split('Correct Answer:')[10].split('\n')[0]}`,
+      explanation:`${questionsText?.split('Explanation:')[10].split('\n')}`,
+    }
+    apiResponse.questions=[question1,question2,question3,question4,question5,question6,question7,question8,question9,question10]
   }
   
   useEffect(()=>{
