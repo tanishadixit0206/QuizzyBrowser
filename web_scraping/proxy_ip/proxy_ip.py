@@ -7,7 +7,7 @@ from datetime import datetime
 
 load_dotenv() #load the env into python's os env
 
-FETCH_PROXY_URL = os.getenv('FETCH_PROXY_URL') #api endpoint for fetching proxy ips
+FETCH_PROXY_URL = 'https://api.ipify.org' #api endpoint for fetching proxy ips
 PATH = os.path.join(os.path.dirname(__file__),'data/free-proxy-list.txt') #file location to store all ip addresses 
 
 proxyList = []
