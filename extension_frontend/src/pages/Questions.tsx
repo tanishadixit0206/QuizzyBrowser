@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import getQuestions from '../api/getQuestions';
 
 const QuestionsPage = () => {
   const questions = [
@@ -15,6 +16,7 @@ const QuestionsPage = () => {
     },
    
   ];
+
   const navigate = useNavigate();
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
 
@@ -41,8 +43,22 @@ const QuestionsPage = () => {
     console.log("Selected Answers:", selectedAnswers); 
     console.log("Retrieved Answers:", answers); 
   };
-  
+  const getGeneratedQuestions=async (text:string)=>{
+    return await getQuestions(text);
+  }
+  useEffect(()=>{
+    const questionsGenerated= getGeneratedQuestions(`JavaScript Hoisting is the behavior where the interpreter moves function and variable declarations to the top of their respective scope before executing the code. This allows variables to be accessed before declaration, aiding in more flexible coding practices and avoiding “undefined” errors during execution.
 
+      What is Hoisting in JavaScript?
+      Hoisting is the default behavior in JavaScript where variable and function declarations are moved to the top of their respective scopes during the compilation phase. This guarantees that regardless of where these declarations appear within a scope, they can be accessed throughout that scope.
+      
+      Features of Hoisting
+      Declarations are hoisted, not initializations.
+      Allows calling functions before their declarations.
+      All variable and function declarations are processed before any code execution.
+      Undeclared variables are implicitly created as global variables when assigned a value.`)
+      console.log('Questions generated are',questionsGenerated)
+  },[])
   return (
     
     <div className="flex flex-col items-center justify-center min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">

@@ -9,7 +9,7 @@
       "scripting",
       "aiLanguageModelOriginTrial"
     ],
-    "trial_tokens": ["AhqVS+OIdi4KVHGAGRqcQCVKsirWJW/PS4tWSlfY4n7Fo4ZVUcYtF5v0Qi/DOeiY4rUpKo9NENcKJ2EmP19GmQ8AAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vY2ptZWxoaWVscGRkZmRrYm9tamFwZGJnaW1lYmpkbGIiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"],
+    "trial_tokens": ["ApP9ray8tbdI1ztJicO3Q0uQa91fqHaOoiPkKf3fr5CHHWBXmQy4fBkKAKJmnlqEisYpXIAi/my4zt36w8tM3QcAAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vaGhrbWtscHBob29rZWxtcGprYWhhYWltZ2VwZmFpaW0iLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"],
     "host_permissions":[
       "http://*/*",
       "https://*/*"
