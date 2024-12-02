@@ -103,13 +103,13 @@ const apiResponse: ApiResponse = {
 // Mock API Response Example
 console.log(JSON.stringify(apiResponse, null, 2));
 
-
 const QuestionsPage = () => {
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showBack, setShowBack] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
   const [questions,setQuestions]:[Question[]|null,(questions:Question[]|null)=>void]=useState<Question[]|null>(null);
   const [loading,setLoading]=useState(true);
   const [currentQuestion,setCurrentQuestion]=useState<Question|null>(null);
@@ -298,6 +298,7 @@ const QuestionsPage = () => {
 
   const handleNext = () => {
     setShowBack(false);
+    setResetTimer(!resetTimer);
     if(questions){
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -323,7 +324,7 @@ const QuestionsPage = () => {
 
     return (
       (loading)?<>Loading...</>:
-      <div className="flex flex-col items-center h-screen bg-gray-100 p-4">
+      <div className="flex overflow-y-scroll flex-col items-center h-screen bg-gray-100 p-4 custom-scroll">
         <div className="bg-white shadow-lg rounded-lg p-8 text-center max-w-md w-full">
           <h1 className="text-3xl font-bold mb-4 text-blue-600">Quiz Completed!</h1>
           <div className="mb-6">
@@ -364,7 +365,7 @@ const QuestionsPage = () => {
           </div>
           <button 
             onClick={() => navigate('/')}
-            className="mt-6 bg-blue-600 text-lg text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200"
+            className="mt-6 bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border"
           >
             Back to Home
           </button>
@@ -376,7 +377,7 @@ const QuestionsPage = () => {
 
   return (
     (loading)?<>Loading.....</>:(questions)?
-    <div className="flex flex-col h-auto w-auto px-4 py-4 bg-gray-100">
+    <div className="flex overflow-y-scroll custom-scroll flex-col h-auto w-auto px-4 py-4 transpDiv" style={{"background":"none"}}>
       {/* <div className="QuesHeadingDiv">
         <h1 className="QuestionsHeading">Questions - {apiResponse.title}</h1>
         <svg onClick={()=>{
@@ -393,11 +394,12 @@ const QuestionsPage = () => {
         onAnswerSelect={handleAnswerSelect}
         showBack={showBack}
         onReveal={handleReveal}
+        resetTimer={resetTimer}
       />)}
 
       {showBack&&(
         <button
-          className="mt-6 bg-blue-600 text-lg text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+          className=" bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border my-0"
           onClick={handleNext}
         >
           {currentQuestionIndex < questions.length - 1 ? "Next" : "Finish"}
@@ -408,4 +410,3 @@ const QuestionsPage = () => {
 };
 
 export default QuestionsPage;
-
