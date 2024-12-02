@@ -44,7 +44,7 @@ export default async function getQuestions(text:string){
         const result=await session.prompt(`Read the following text - ${text}
 
 
-Now generate 2 objective questions from the above outputting per question, the question itself, the four options, the correct answer and the explanation. You must output these 7 elements per question. Don't make anything bold. Don't use new line characters.Start questions with 1. and 2. Start options with a) or b) or c) or d). Start correct answer with Correct Answer: .Start explanation with Explanation: .For the correct answer, give the text part of the correct option.`)
+Now generate 2 objective questions from the above outputting per question, the question itself, the four options, the correct answer and the explanation. You must output these 7 elements per question. Don't make anything bold. Don't use new line characters.Start questions with 1. and 2. Start options with a) or b) or c) or d). Give correct answer as Correct Answer: a) Insert the correct answer to the question here or b) Insert the correct answer to the question here or c) Insert the correct answer to the question here or d) Insert the correct answer to the question here. Give the correct answer in the same format as the options given above. Start explanation with Explanation: .`)
 console.log("Result:",result);
         return result;
     }else{

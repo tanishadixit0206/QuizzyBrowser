@@ -122,17 +122,29 @@ const QuestionsPage = () => {
     const parseAnswer = (text: string, prefix: string[],index:number): string | null => {
       for (const p of prefix) {
         if (text.includes(p)) {
-          return text.split(p)[index].split(".")[0] + ".";
+          return text.split(p)[index].split("\n")[0];
         }
       }
       return null;
     };
 
-    const parseCorrectAnswer=(text:string,prefix:string[],index:number):string|null=>{
+    const parseCorrectAnswer=(text:string,prefix:string[],index:number,answers:string[]):string|null=>{
       for (const p of prefix){
         const correctAnswer=text?.split("Correct Answer:")[index]?.split("\n")[0]?.trim()
+        console.log("Correct Answer with option: ", correctAnswer)
         if(correctAnswer.includes(p)){
-          return correctAnswer.split(p)[1]?.trim();
+          const correctOption=p[0].toLowerCase();
+          console.log("Correct Option: ",correctOption)
+          if(correctOption==='a'){
+            return answers[0];
+          }else if(correctOption==='b'){
+            return answers[1];
+          }else if(correctOption==='c'){
+            return answers[2];
+          }else if(correctOption==='d'){
+            return answers[3];
+          }
+          // return correctAnswer.split(p)[1]?.trim();
         }
       }
       return null;
@@ -147,7 +159,6 @@ const QuestionsPage = () => {
       }
       return "Question not found.";
     };
-
     const question1: Question = {
       id: 1,
       question: parseQuestion(questionsText?questionsText:``,["1.", "1:"]),
@@ -157,7 +168,12 @@ const QuestionsPage = () => {
         parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],1) || "Answer C not found.",
         parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],1) || "Answer D not found.",
       ],
-      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],1)|| "Correct answer not found.",
+      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],1,[
+        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],1) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],1) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],1) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],1) || "Answer D not found.",
+      ])|| "Correct answer not found.",
       explanation: questionsText?.split("Explanation:")[1]?.split("\n")[0]?.trim() || "Explanation not found.",
     };
     console.log("Question 1: ",question1);
@@ -170,7 +186,12 @@ const QuestionsPage = () => {
         parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],2) || "Answer C not found.",
         parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],2) || "Answer D not found.",
       ],
-      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],2)|| "Correct answer not found.",
+      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],2,[
+        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],2) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],2) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],2) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],2) || "Answer D not found.",
+      ])|| "Correct answer not found.",
       explanation: questionsText?.split("Explanation:")[2]?.split("\n")[0]?.trim() || "Explanation not found.",
     };
     // const question2:Question={
