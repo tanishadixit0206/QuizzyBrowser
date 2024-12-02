@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../styles/QuestionTile.css";
-// import { CiBookmark } from "react-icons/ci";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 
@@ -15,8 +14,8 @@ interface QuestionTileProps {
   onReveal: () => void;
   resetTimer: boolean; 
   bookmarked: boolean;
-  addToBookmarks: () => void;
-  removeFromBookmarks: () => void;
+  addToBookmarks: (question: string, answer: string) => void;
+  removeFromBookmarks: (question:string) => void;
 }
 
 const QuestionTile: React.FC<QuestionTileProps> = ({
@@ -51,14 +50,14 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   }, [timeLeft, showBack, onReveal]);
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
-
   const handleBookmarkClick = () => {
     if (bookmarked) {
-      removeFromBookmarks();
+      removeFromBookmarks(question);
     } else {
-      addToBookmarks();
+      addToBookmarks(question,correctAnswer);
     }
   };
+
   return (
     <div className="question-tile-container">
       <div 
