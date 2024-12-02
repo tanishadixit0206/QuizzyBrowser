@@ -196,7 +196,7 @@ const QuestionsPage = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="flex overflow-y-scroll custom-scroll flex-col h-auto w-auto px-4 py-4 bg-gray-100">
+    <div className="flex overflow-y-scroll custom-scroll flex-col h-auto w-auto px-4 py-4 transpDiv" style={{"background":"none"}}>
       <div className="QuesHeadingDiv">
         <h1 className="QuestionsHeading">Questions - {apiResponse.title}</h1>
         <svg onClick={()=>{
@@ -216,7 +216,7 @@ const QuestionsPage = () => {
       />
       {showBack && (
         <button
-          className="mt-6 bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border"
+          className=" bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border my-0"
           onClick={handleNext}
         >
           {currentQuestionIndex < questions.length - 1 ? "Next" : "Finish"}

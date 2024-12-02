@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/QuestionTile.css";
-import { CiBookmark } from "react-icons/ci";
+// import { CiBookmark } from "react-icons/ci";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
 
 interface QuestionTileProps {
   question: string;
@@ -26,11 +28,11 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   resetTimer,
 }) => {
   const [timeLeft, setTimeLeft] = useState(60);
+  const [bookmarked,setBookmarked] = useState<boolean>(false);
+
 
   useEffect(() => {
-    
-      setTimeLeft(60);
-    
+      setTimeLeft(60)
   }, [resetTimer]);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   const timerWidth = `${(timeLeft / 60) * 100}%`;
 
   const addToBookmarks = () => {
+    setBookmarked(true);
     console.log("Add to Bookmarks");
   }
 
@@ -62,10 +65,7 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
           
           <div className="flex items-center justify-between mb-3">
             <p className="text-xl font-bold text-gray-800 flex-grow">{question}</p>
-            <CiBookmark 
-            onClick={addToBookmarks}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />
+
           </div>
 
 
@@ -102,6 +102,14 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
     
           {/* Back Side */}
           <div className="flip-card-back">
+            {!bookmarked? <FaRegBookmark 
+            onClick={addToBookmarks}
+              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+            />: <FaBookmark 
+            onClick={addToBookmarks}
+              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+            />}
+         
             <p className="mb-4">
               <strong className="text-lg">Your Answer:</strong>{" "}
               <span

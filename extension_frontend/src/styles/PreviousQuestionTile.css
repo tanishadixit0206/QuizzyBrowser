@@ -115,7 +115,7 @@
   cursor: pointer;
   transition: background-color 0.5s ease;
   text-align: left;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: white  ;
 }
 
@@ -131,7 +131,9 @@
 
 .accordion-question {
   font-weight: 600;
+  max-width: 350px;
   flex-grow: 1;
+  font-size: 1.1rem;
 }
 
 .accordion-icon {

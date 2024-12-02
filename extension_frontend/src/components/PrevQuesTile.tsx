@@ -1,4 +1,5 @@
 import { AccordionItem } from "../utils/types.ts";
+import { MdDelete } from "react-icons/md";
 
 const PrevQuesTile:React.FC<AccordionItem> = (props)=>{
   const toggleAccordion = (id:number|null) =>{
@@ -16,6 +17,7 @@ const PrevQuesTile:React.FC<AccordionItem> = (props)=>{
               className={`accordion-header ${props.x === props.id ? 'active' : ''}`}
             >
               <span className="accordion-question">{props.question}</span>
+              <MdDelete />
               <span className="accordion-icon">
                 {props.x === props.id ? '▼' : '▶'}
               </span>
