@@ -1,33 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaMicrophone, FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 interface SubjectiveQuestionTileProps {
-  question: string;
-  onAnswerChange: (answer: string) => void;
-  explanation: string;
-  showBack: boolean;
-  onReveal: () => void;
-//   resetTimer: boolean;
+    question: string;
+    onAnswerChange: (answer: string) => void;
+    explanation: string;
+    showBack: boolean;
+    onReveal: () => void;
     bookmarked: boolean;
     addToBookmarks: (question: string, answer: string) => void;
     removeFromBookmarks: (question:string) => void;
+    currentAnswer: string; // New prop to control the textarea value
 }
 
 const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
-  question,
-  onAnswerChange,
-  explanation,
-  showBack,
-  onReveal,
-//   resetTimer,
-  bookmarked,
-  addToBookmarks,
-  removeFromBookmarks,
+    question,
+    onAnswerChange,
+    explanation,
+    showBack,
+    onReveal,
+    bookmarked,
+    addToBookmarks,
+    removeFromBookmarks,
+    currentAnswer, // New prop
 }) => {
   const [answer, setAnswer] = useState<string>("");
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
+
+  // Update local state when currentAnswer prop changes
+  useEffect(() => {
+    setAnswer(currentAnswer);
+  }, [currentAnswer, question]); // Reset when question changes
 
 
   const handleAnswerChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

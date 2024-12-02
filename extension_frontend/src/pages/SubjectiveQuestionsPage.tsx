@@ -40,36 +40,44 @@ const apiResponse: ApiResponse = {
 };
 
 const SubjectiveQuestionsPage = () => {
-  const navigate = useNavigate();
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
-  const [showBack, setShowBack] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(false);
-//   const [resetTimer, setResetTimer] = useState(true);
-  const [bookmarked, setBookmarked] = useState(false);
+    const navigate = useNavigate();
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
+    const [currentAnswer, setCurrentAnswer] = useState<string>("");
+    const [showBack, setShowBack] = useState(false);
+    const [quizCompleted, setQuizCompleted] = useState(false);
+    const [bookmarked, setBookmarked] = useState(false);
 
   const questions = apiResponse.questions;
 
   const handleAnswerChange = (answer: string) => {
-    const updatedAnswers = [...selectedAnswers];
-    updatedAnswers[currentQuestionIndex] = answer;
-    setSelectedAnswers(updatedAnswers);
+    setCurrentAnswer(answer);
   };
 
   const handleReveal = () => {
     setShowBack(true);
+    const updatedAnswers = [...selectedAnswers];
+    updatedAnswers[currentQuestionIndex] = currentAnswer;
+    setSelectedAnswers(updatedAnswers);
+    setShowBack(true);
   };
 
   const handleNext = () => {
-    setShowBack(false);
-    // setResetTimer(true); // Reset the timer for the next question
-    setBookmarked(false); // Reset the bookmarked state for the next question
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setQuizCompleted(true);
-    }
-    // setResetTimer(false); // Set resetTimer to false after resetting the timer
+     // Save the current answer to the selected answers array
+     const updatedAnswers = [...selectedAnswers];
+     updatedAnswers[currentQuestionIndex] = currentAnswer;
+     setSelectedAnswers(updatedAnswers);
+ 
+     // Reset states for the next question
+     setShowBack(false);
+     setBookmarked(false);
+     setCurrentAnswer(""); // Reset current answer
+ 
+     if (currentQuestionIndex < questions.length - 1) {
+       setCurrentQuestionIndex(currentQuestionIndex + 1);
+     } else {
+       setQuizCompleted(true);
+     }
   };
 
   const calculateScore = () => {
@@ -183,7 +191,6 @@ const removeFromBookmarks = (question: string) => {
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <div className="flex flex-col h-auto w-auto px-4 py-4 bg-gray-100">
@@ -194,15 +201,15 @@ const removeFromBookmarks = (question: string) => {
         }} className="home_pic" xmlns="http://www.w3.org/2000/svg"  viewBox="0,0,256,256" width="48px" height="48px" fill-rule="nonzero"><g fill="#8a2be2" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" ><g transform="scale(5.33333,5.33333)"><path d="M39.5,43h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-9c0,-1.105 -0.895,-2 -2,-2h-4c-1.105,0 -2,0.895 -2,2v9c0,1.381 -1.119,2.5 -2.5,2.5h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-19.087c0,-2.299 1.054,-4.471 2.859,-5.893l14.212,-11.199c0.545,-0.428 1.313,-0.428 1.857,0l14.214,11.199c1.805,1.422 2.858,3.593 2.858,5.891v19.089c0,1.381 -1.119,2.5 -2.5,2.5z"></path></g></g></svg>
       </div>
       <SubjectiveQuestionTile
-        question={currentQuestion.question}
+        question={questions[currentQuestionIndex].question}
         onAnswerChange={handleAnswerChange}
-        explanation={currentQuestion.explanation}
+        explanation={questions[currentQuestionIndex].explanation}
         showBack={showBack}
         onReveal={handleReveal}
-        // resetTimer={resetTimer}
         bookmarked={bookmarked}
         addToBookmarks={addToBookmarks}
         removeFromBookmarks={removeFromBookmarks}
+        currentAnswer={currentAnswer} // Pass current answer to reset textarea
       />
       {showBack && (
         <button
