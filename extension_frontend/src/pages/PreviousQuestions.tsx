@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import PrevQuesTile from "../components/PrevQuesTile.tsx";
 import { AccordianDataType } from "../utils/types.ts";
 import { useNavigate } from "react-router-dom";
-
 const PreviousQuestions:React.FC = () => {
   const [openId , setOpenId] = useState<number|null>(null);
   const navigate = useNavigate();
@@ -15,6 +14,11 @@ const PreviousQuestions:React.FC = () => {
        console.log(`result hai ${result.saved_questions}`)
        setAccordionData(current_saved);
     })},[]);
+
+
+    const updateAccordianData = (updatedQuestions:AccordianDataType[]) =>{
+      setAccordionData(updatedQuestions);
+    }
     
   function OpenthisAccordion(x:number|null){
     if(x!=openId){
@@ -34,7 +38,8 @@ const PreviousQuestions:React.FC = () => {
         </div>
         <div className="scrollWindow">  
         {accordionData.map((item)=>{
-          return(<PrevQuesTile openAccordianFunction = {OpenthisAccordion} x={openId} id={item.id} question={item.question} answer={item.answer}/>);
+          console.log(item)
+          return(<PrevQuesTile updateAccordianData={updateAccordianData} openAccordianFunction = {OpenthisAccordion} x={openId} id={item.id} question={item.question} answer={item.answer}/>);
         })}
         </div>
         

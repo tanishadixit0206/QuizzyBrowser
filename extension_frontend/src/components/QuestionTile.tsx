@@ -13,6 +13,9 @@ interface QuestionTileProps {
   showBack: boolean;
   onReveal: () => void;
   resetTimer: boolean; 
+  bookmarked: boolean;
+  addToBookmarks: (question: string, answer: string) => void;
+  removeFromBookmarks: (question:string) => void;
 }
 
 const QuestionTile: React.FC<QuestionTileProps> = ({
@@ -25,9 +28,11 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   showBack,
   onReveal,
   resetTimer,
+  bookmarked,
+  addToBookmarks,
+  removeFromBookmarks,
 }) => {
   const [timeLeft, setTimeLeft] = useState(60);
-  const [bookmarked,setBookmarked] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -42,27 +47,14 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   }, [timeLeft, showBack]);
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
-
-  const addToBookmarks = (question:string,answer:string) => {
-
-    chrome.storage.local.get(["saved_questions"]).then((result)=>{
-    const current_saved:{[key:string]:string|number}[]=result["saved_questions"]||[];
-    if(!Array.isArray(current_saved)){
-      console.error("why");
-      return;
+  const handleBookmarkClick = () => {
+    if (bookmarked) {
+      removeFromBookmarks(question);
+    } else {
+      addToBookmarks(question,correctAnswer);
     }
-    current_saved.push({
-      'id':current_saved.length+1,
-      'question':question,
-      'answer':answer});
-    chrome.storage.local.set({"saved_questions":current_saved}).then(()=>{
-      console.log("saved it my maan");
-    })
-    
-  })
-  setBookmarked(true);
-  console.log("Add to Bookmarks");
-}
+  };
+
 
   return (
     <div className="question-tile-container">
@@ -117,12 +109,17 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
     
           {/* Back Side */}
           <div className="flip-card-back">
-            {!bookmarked? <FaRegBookmark 
-              onClick={()=>addToBookmarks(question,correctAnswer)}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />: <FaBookmark 
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />}
+          {bookmarked ? (
+              <FaBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            ) : (
+              <FaRegBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            )}
          
             <p className="mb-4">
               <strong className="text-lg">Your Answer:</strong>{" "}
