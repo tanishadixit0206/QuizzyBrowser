@@ -109,6 +109,7 @@ const QuestionsPage = () => {
   const [showBack, setShowBack] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
+  const[bookmarked, setBookmarked]= useState<boolean>(false);
 
   const questions = apiResponse.questions;
 
@@ -125,6 +126,7 @@ const QuestionsPage = () => {
   const handleNext = () => {
     setShowBack(false);
     setResetTimer(!resetTimer);
+    setBookmarked(false);
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -136,6 +138,15 @@ const QuestionsPage = () => {
     return selectedAnswers.filter((answer, index) => 
       answer === questions[index].correctAnswer
     ).length;
+  };
+  const addToBookmarks = () => {
+    setBookmarked(true);
+    console.log("Add to Bookmarks");
+  };
+
+  const removeFromBookmarks = () => {
+    setBookmarked(false);
+    console.log("Remove from Bookmarks");
   };
 
   if (quizCompleted) {
@@ -213,6 +224,9 @@ const QuestionsPage = () => {
         showBack={showBack}
         onReveal={handleReveal}
         resetTimer={resetTimer}
+        bookmarked={bookmarked}
+        addToBookmarks={addToBookmarks}
+        removeFromBookmarks={removeFromBookmarks}
       />
       {showBack && (
         <button

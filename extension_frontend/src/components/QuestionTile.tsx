@@ -14,6 +14,9 @@ interface QuestionTileProps {
   showBack: boolean;
   onReveal: () => void;
   resetTimer: boolean; 
+  bookmarked: boolean;
+  addToBookmarks: () => void;
+  removeFromBookmarks: () => void;
 }
 
 const QuestionTile: React.FC<QuestionTileProps> = ({
@@ -26,9 +29,11 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   showBack,
   onReveal,
   resetTimer,
+  bookmarked,
+  addToBookmarks,
+  removeFromBookmarks,
 }) => {
   const [timeLeft, setTimeLeft] = useState(60);
-  const [bookmarked,setBookmarked] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -47,11 +52,13 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
 
-  const addToBookmarks = () => {
-    setBookmarked(true);
-    console.log("Add to Bookmarks");
-  }
-
+  const handleBookmarkClick = () => {
+    if (bookmarked) {
+      removeFromBookmarks();
+    } else {
+      addToBookmarks();
+    }
+  };
   return (
     <div className="question-tile-container">
       <div 
@@ -105,13 +112,17 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
     
           {/* Back Side */}
           <div className="flip-card-back">
-            {!bookmarked? <FaRegBookmark 
-            onClick={addToBookmarks}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />: <FaBookmark 
-            onClick={addToBookmarks}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />}
+          {bookmarked ? (
+              <FaBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            ) : (
+              <FaRegBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            )}
          
             <p className="mb-4">
               <strong className="text-lg">Your Answer:</strong>{" "}
