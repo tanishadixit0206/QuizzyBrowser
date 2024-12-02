@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../styles/QuestionTile.css";
-// import { CiBookmark } from "react-icons/ci";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 
@@ -44,10 +43,26 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
 
-  const addToBookmarks = () => {
-    setBookmarked(true);
-    console.log("Add to Bookmarks");
-  }
+  const addToBookmarks = (question:string,answer:string) => {
+
+    chrome.storage.local.get(["saved_questions"]).then((result)=>{
+    const current_saved:{[key:string]:string|number}[]=result["saved_questions"]||[];
+    if(!Array.isArray(current_saved)){
+      console.error("why");
+      return;
+    }
+    current_saved.push({
+      'id':current_saved.length+1,
+      'question':question,
+      'answer':answer});
+    chrome.storage.local.set({"saved_questions":current_saved}).then(()=>{
+      console.log("saved it my maan");
+    })
+    
+  })
+  setBookmarked(true);
+  console.log("Add to Bookmarks");
+}
 
   return (
     <div className="question-tile-container">
@@ -103,10 +118,9 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
           {/* Back Side */}
           <div className="flip-card-back">
             {!bookmarked? <FaRegBookmark 
-            onClick={addToBookmarks}
+              onClick={()=>addToBookmarks(question,correctAnswer)}
               className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
             />: <FaBookmark 
-            onClick={addToBookmarks}
               className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
             />}
          
