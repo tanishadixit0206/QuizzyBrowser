@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../styles/QuestionTile.css";
-// import { CiBookmark } from "react-icons/ci";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 
@@ -14,6 +13,9 @@ interface QuestionTileProps {
   showBack: boolean;
   onReveal: () => void;
   resetTimer: boolean; 
+  bookmarked: boolean;
+  addToBookmarks: (question: string, answer: string) => void;
+  removeFromBookmarks: (question:string) => void;
 }
 
 const QuestionTile: React.FC<QuestionTileProps> = ({
@@ -26,9 +28,11 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   showBack,
   onReveal,
   resetTimer,
+  bookmarked,
+  addToBookmarks,
+  removeFromBookmarks,
 }) => {
   const [timeLeft, setTimeLeft] = useState(60);
-  const [bookmarked,setBookmarked] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -40,14 +44,19 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     }
-  }, [timeLeft, showBack]);
+    else if (timeLeft === 0) {
+      onReveal();
+    }
+  }, [timeLeft, showBack, onReveal]);
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
-
-  const addToBookmarks = () => {
-    setBookmarked(true);
-    console.log("Add to Bookmarks");
-  }
+  const handleBookmarkClick = () => {
+    if (bookmarked) {
+      removeFromBookmarks(question);
+    } else {
+      addToBookmarks(question,correctAnswer);
+    }
+  };
 
   return (
     <div className="question-tile-container">
@@ -102,13 +111,17 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
     
           {/* Back Side */}
           <div className="flip-card-back">
-            {!bookmarked? <FaRegBookmark 
-            onClick={addToBookmarks}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />: <FaBookmark 
-            onClick={addToBookmarks}
-              className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
-            />}
+          {bookmarked ? (
+              <FaBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            ) : (
+              <FaRegBookmark 
+                onClick={handleBookmarkClick}
+                className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
+              />
+            )}
          
             <p className="mb-4">
               <strong className="text-lg">Your Answer:</strong>{" "}

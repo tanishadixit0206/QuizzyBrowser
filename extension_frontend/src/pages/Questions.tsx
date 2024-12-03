@@ -36,6 +36,7 @@ const QuestionsPage = () => {
   const [showBack, setShowBack] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
+  const[bookmarked, setBookmarked]= useState<boolean>(false);
   const [questions,setQuestions]:[Question[]|null,(questions:Question[]|null)=>void]=useState<Question[]|null>(null);
   const [loading,setLoading]=useState(true);
   const [currentQuestion,setCurrentQuestion]=useState<Question|null>(null);
@@ -188,8 +189,9 @@ const QuestionsPage = () => {
   const handleNext = () => {
     setShowBack(false);
     setResetTimer(!resetTimer);
+    setBookmarked(false);
     if(questions){
-      if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         setQuizCompleted(true);
@@ -205,6 +207,57 @@ const QuestionsPage = () => {
     }
     return
   };
+   
+  const addToBookmarks = (question:string,answer:string) => {
+
+    chrome.storage.local.get(["saved_questions"]).then((result)=>{
+    const current_saved:{[key:string]:string|number}[]=result["saved_questions"]||[];
+    if(!Array.isArray(current_saved)){
+      console.error("why");
+      return;
+    }
+    current_saved.push({
+      'id':current_saved.length+1,
+      'question':question,
+      'answer':answer});
+    chrome.storage.local.set({"saved_questions":current_saved}).then(()=>{
+      console.log("saved it my maan");
+    })
+    
+  })
+  setBookmarked(true);
+  console.log("Add to Bookmarks");
+}
+  
+const removeFromBookmarks = (question: string) => {
+  chrome.storage.local.get(["saved_questions"]).then((result) => {
+    const current_saved: {[key:string]:string|number}[] = result["saved_questions"] || [];
+    
+    if (!Array.isArray(current_saved)) {
+      console.error("Saved questions is not an array");
+      return;
+    }
+    
+    // Filter out the item with the matching question
+    const updated_saved = current_saved.filter(item => item['question'] !== question);
+    
+    // Reindex the remaining items to ensure consecutive IDs
+    const reindexed_saved = updated_saved.map((item, index) => ({
+      ...item,
+      'id': index + 1
+    }));
+    
+    // Save the updated and reindexed array back to storage
+    chrome.storage.local.set({"saved_questions": reindexed_saved}).then(() => {
+      console.log(`Question removed successfully`);
+      setBookmarked(false);
+    }).catch((error) => {
+      console.error("Error saving updated bookmarks:", error);
+    });
+  }).catch((error) => {
+    console.error("Error retrieving bookmarks:", error);
+  });
+}
 
   if (quizCompleted) {
     const score = calculateScore();
@@ -284,6 +337,9 @@ const QuestionsPage = () => {
         showBack={showBack}
         onReveal={handleReveal}
         resetTimer={resetTimer}
+        bookmarked={bookmarked}
+        addToBookmarks={addToBookmarks}
+        removeFromBookmarks={removeFromBookmarks}
       />)}
 
       {showBack&&(
