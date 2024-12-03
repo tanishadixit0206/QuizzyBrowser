@@ -1,0 +1,42 @@
+/* LoadingSpinner.css */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.loading-spinner {
+  border: 8px solid #e0e0e0;
+  border-top: 8px solid #8a2be2;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+.MainLandingDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: auto;
+}
+
+.landingPageHeading{
+  font-family: "Kanit", serif;
+  font-weight: 700;
+  font-style: normal;
+  color: blueviolet;
+  margin: 0;
+  font-size: 2rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
