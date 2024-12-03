@@ -134,16 +134,18 @@ const QuestionsPage = () => {
           console.log("This is the heading of my array",heading)
           const content = scrapedData[heading];
           console.log("This is my content",content)
-          if (questionsGenerated) {
-            const newQuestions = await getGeneratedQuestions(content);
-            console.log("This is the question generated in this iteration",newQuestions)
-            questionsGenerated.push(...newQuestions);
-            console.log("These are the questions generated till now",questionsGenerated)
-        }else{
-            console.log("This is my first element",content)
-            questionsGenerated = await getGeneratedQuestions(content);
-            console.log("These are the questions generated till now",questionsGenerated)
-        }
+            if (questionsGenerated) {
+              if(questionsGenerated.length<6){
+                const newQuestions = await getGeneratedQuestions(content);
+                console.log("This is the question generated in this iteration",newQuestions)
+                questionsGenerated.push(...newQuestions);
+                console.log("These are the questions generated till now",questionsGenerated)
+              }         
+            }else{
+              console.log("This is my first element",content)
+              questionsGenerated = await getGeneratedQuestions(content);
+              console.log("These are the questions generated till now",questionsGenerated)
+          }
         }
 
       }
