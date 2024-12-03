@@ -115,3 +115,6 @@
     height: 300px;
   }
 } */
+.scrollable{
+  overflow-y: scroll;
+}
