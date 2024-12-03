@@ -37,7 +37,7 @@ const QuestionsPage = () => {
   const [showBack, setShowBack] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
-  const[bookmarked, setBookmarked]= useState<boolean>(false);
+  const [bookmarked, setBookmarked]= useState<boolean>(false);
   const [questions,setQuestions]:[Question[]|null,(questions:Question[]|null)=>void]=useState<Question[]|null>(null);
   const [loading,setLoading]=useState(true);
   const [currentQuestion,setCurrentQuestion]=useState<Question|null>(null);
@@ -127,7 +127,16 @@ const QuestionsPage = () => {
     console.log("Question 1: ",question2);
     return [question1,question2,];
   }
-  
+  useEffect(()=>{
+    chrome.tabs.query({active:true,currentWindow:true},(tabs)=>{
+      if(tabs[0]){
+        chrome.tabs.sendMessage(
+          tabs[0].id?tabs[0].id:0,
+          {type:"BLUR",data:!showBack}
+        )
+      }
+    })
+  },[showBack])
   useEffect(()=>{
     const fetchQuestions=async ()=>{
       console.log("This is the scraped Data: ",scrapedData)
