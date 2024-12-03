@@ -62,7 +62,7 @@
         try {
             const content = extractContent();
             console.log("Content extraction completed:", content);
-            chrome.runtime.sendMessage({ type: "CONTENT_EXTRACTED", data: content });
+            chrome.runtime.sendMessage({ type: "GFG_CONTENT_EXTRACTED", data: content });
         } catch (error) {
             console.error("Error extracting content:", error);
             chrome.runtime.sendMessage({ type: "ERROR", error: error.message });

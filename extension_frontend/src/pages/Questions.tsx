@@ -44,7 +44,7 @@ const QuestionsPage = () => {
   const getGeneratedQuestions=async (text:string)=>{
     const questionsText= await getQuestions(text);
     // console.log("this is the response",questionsText)
-    console.log("trying to get question1")
+    console.log("trying to get questions")
     // console.log(questionsText?.split("1.")[1].split("?")[0]+"?")
     const parseAnswer = (text: string, prefix: string[],index:number): string | null => {
       for (const p of prefix) {
@@ -90,16 +90,16 @@ const QuestionsPage = () => {
       id: 1,
       question: parseQuestion(questionsText?questionsText:``,["1.", "1:"]),
       answers: [
-        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],1) || "Answer A not found.",
-        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],1) || "Answer B not found.",
-        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],1) || "Answer C not found.",
-        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],1) || "Answer D not found.",
+        parseAnswer(questionsText?questionsText:``, ["a)", "a.", "A)"],1) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b)", "b.", "B)"],1) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c)", "c.", "C)"],1) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d)", "d.", "D)"],1) || "Answer D not found.",
       ],
-      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],1,[
-        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],1) || "Answer A not found.",
-        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],1) || "Answer B not found.",
-        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],1) || "Answer C not found.",
-        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],1) || "Answer D not found.",
+      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a)", "a.", "A)","b)", "b.", "B)","c)", "c.", "C)","d)", "d.", "D)"],1,[
+        parseAnswer(questionsText?questionsText:``, ["a)", "a.", "A)"],1) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b)", "b.", "B)"],1) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c)", "c.", "C)"],1) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d)", "d.", "D)"],1) || "Answer D not found.",
       ])|| "Correct answer not found.",
       explanation: questionsText?.split("Explanation:")[1]?.split("\n")[0]?.trim() || "Explanation not found.",
     };
@@ -108,19 +108,20 @@ const QuestionsPage = () => {
       id: 2,
       question: parseQuestion(questionsText?questionsText:``,["2.", "2:"]),
       answers: [
-        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],2) || "Answer A not found.",
-        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],2) || "Answer B not found.",
-        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],2) || "Answer C not found.",
-        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],2) || "Answer D not found.",
+        parseAnswer(questionsText?questionsText:``, ["a)", "a.", "A)"],2) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b)", "b.", "B)"],2) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c)", "c.", "C)"],2) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d)", "d.", "D)"],2) || "Answer D not found.",
       ],
-      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a) ", "a.", "A)","b) ", "b.", "B)","c) ", "c.", "C)","d) ", "d.", "D)"],2,[
-        parseAnswer(questionsText?questionsText:``, ["a) ", "a.", "A)"],2) || "Answer A not found.",
-        parseAnswer(questionsText?questionsText:``, ["b) ", "b.", "B)"],2) || "Answer B not found.",
-        parseAnswer(questionsText?questionsText:``, ["c) ", "c.", "C)"],2) || "Answer C not found.",
-        parseAnswer(questionsText?questionsText:``, ["d) ", "d.", "D)"],2) || "Answer D not found.",
+      correctAnswer: parseCorrectAnswer(questionsText?questionsText:``,["a)", "a.", "A)","b)", "b.", "B)","c)", "c.", "C)","d)", "d.", "D)"],2,[
+        parseAnswer(questionsText?questionsText:``, ["a)", "a.", "A)"],2) || "Answer A not found.",
+        parseAnswer(questionsText?questionsText:``, ["b)", "b.", "B)"],2) || "Answer B not found.",
+        parseAnswer(questionsText?questionsText:``, ["c)", "c.", "C)"],2) || "Answer C not found.",
+        parseAnswer(questionsText?questionsText:``, ["d)", "d.", "D)"],2) || "Answer D not found.",
       ])|| "Correct answer not found.",
       explanation: questionsText?.split("Explanation:")[2]?.split("\n")[0]?.trim() || "Explanation not found.",
     };
+    console.log("Question 1: ",question2);
     return [question1,question2,];
   }
   

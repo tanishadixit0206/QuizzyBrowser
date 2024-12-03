@@ -11,7 +11,7 @@
     "content_scripts":[
       {
         "matches":["<all_urls>"],
-        "js":["final_gfg.js"]
+        "js":["final_gfg.js","mdn_scraper.js","mdn_scroller.js","gfg_scroller.js"]
       }
     ],
     "permissions":[
