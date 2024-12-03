@@ -3,18 +3,21 @@ import { FaMicrophone, FaRegBookmark, FaBookmark ,FaMicrophoneSlash } from "reac
 import "../styles/LanguageDropdown.css"
 
 interface SubjectiveQuestionTileProps {
+    isCorrect:boolean,
     question: string;
     onAnswerChange: (answer: string) => void;
     explanation: string;
     showBack: boolean;
-    onReveal: () => void;
+    onReveal: (question:string,submittedAns:string) => void;
     bookmarked: boolean;
     addToBookmarks: (question: string, answer: string) => void;
     removeFromBookmarks: (question:string) => void;
     currentAnswer: string; // New prop to control the textarea value
+    submitAns:(s:string)=>void;
 }
 
 const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
+   isCorrect,
     question,
     onAnswerChange,
     explanation,
@@ -24,6 +27,7 @@ const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
     addToBookmarks,
     removeFromBookmarks,
     currentAnswer, // New prop
+    submitAns
 }) => {
   const [answer, setAnswer] = useState<string>("");
   const [isRecording, setIsRecording] = useState<boolean>(false);
@@ -188,7 +192,12 @@ const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
             </div>
             <button
               className="mt-6 bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border"
-              onClick={onReveal}
+              onClick={()=>{
+                submitAns(answer);
+                onReveal(question,answer);
+                
+
+              }}
             >
               Reveal Answer
             </button>
@@ -207,10 +216,16 @@ const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
                 className="text-2xl cursor-pointer transition-transform transform hover:scale-110"  
               />
             )}
+            <div className="scrollable">
+            <p>
+            <strong className="text-lg"> {isCorrect?"Correct":"Wrong"}</strong>
+
+            </p>
             <p className="mb-4">
               <strong className="text-lg">Your Answer:</strong>{" "}
               <span className="text-lg font-bold">{answer || "No answer"}</span>
             </p>
+            
             <p className="mb-4">
               <strong className="text-lg">Explanation:</strong>{" "}
               <span className="text-gray-700 text-lg italic">{explanation}</span>
@@ -238,6 +253,7 @@ const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
                                 </select>
                             </div>
                             </div>         
+            </div>
           </div>
         </div>
       </div>
