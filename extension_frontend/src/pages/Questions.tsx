@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getQuestions from '../api/getQuestions';
 import QuestionTile from "../components/QuestionTile";
+import Loading from "../components/Loading";
 // import {gfgExtractor} from '../utils/scraping/final_gfg';
 
 // Define TypeScript types
@@ -41,6 +42,7 @@ const QuestionsPage = () => {
   const [loading,setLoading]=useState(true);
   const [currentQuestion,setCurrentQuestion]=useState<Question|null>(null);
   const [scrapedData,setScrapedData]=useState<{[heading:string]:string}|null>(null);
+  const [heading,setHeading]=useState<string|null>(null);
   
   const getGeneratedQuestions=async (text:string)=>{
     const questionsText= await getQuestions(text);
@@ -133,6 +135,7 @@ const QuestionsPage = () => {
       if(scrapedData){
         console.log("getting Questions")
         for (const heading of Object.keys(scrapedData)){
+          setHeading(heading);
           console.log("This is the heading of my array",heading)
           const content = scrapedData[heading];
           console.log("This is my content",content)
@@ -183,7 +186,21 @@ const QuestionsPage = () => {
   };
 
   const handleReveal = () => {
-    setShowBack(true);
+    console.log("trying to send scroll message")
+    chrome.tabs.query({active:true,currentWindow:true},(tabs)=>{
+      if(tabs[0]){
+        chrome.tabs.sendMessage(
+          tabs[0].id?tabs[0].id:0,
+          {type:"SCROLL",data:heading},
+          (response)=>{
+            console.log("Response from scroll message",response)
+            if(response){
+              setShowBack(true);
+            }
+          }
+        )
+      }
+    })
   };
 
   const handleNext = () => {
@@ -265,7 +282,7 @@ const removeFromBookmarks = (question: string) => {
     const percentageScore = (score&&totalQuestions)?((score / totalQuestions) * 100).toFixed(2):0;
 
     return (
-      (loading)?<>Loading...</>:
+      (loading)?<Loading loadingText={"Please wait while we prepare the questions..."}/>:
       <div className="flex overflow-y-scroll flex-col items-center h-screen bg-gray-100 p-4 custom-scroll">
         <div className="bg-white shadow-lg rounded-lg p-8 text-center max-w-md w-full">
           <h1 className="text-3xl font-bold mb-4 text-blue-600">Quiz Completed!</h1>
@@ -318,7 +335,7 @@ const removeFromBookmarks = (question: string) => {
 
 
   return (
-    (loading)?<>Loading.....</>:(questions&&scrapedData)?
+    (loading)?<Loading loadingText={"Please wait while we prepare the questions..."}/>:(questions&&scrapedData)?
     <div className="flex overflow-y-scroll custom-scroll flex-col h-auto w-auto px-4 py-4 transpDiv" style={{"background":"none"}}>
       {/* <div className="QuesHeadingDiv">
         <h1 className="QuestionsHeading">Questions - {apiResponse.title}</h1>
@@ -326,7 +343,6 @@ const removeFromBookmarks = (question: string) => {
           navigate('/');
         }} className="home_pic" xmlns="http://www.w3.org/2000/svg"  viewBox="0,0,256,256" width="48px" height="48px" fill-rule="nonzero"><g fill="#8a2be2" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" ><g transform="scale(5.33333,5.33333)"><path d="M39.5,43h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-9c0,-1.105 -0.895,-2 -2,-2h-4c-1.105,0 -2,0.895 -2,2v9c0,1.381 -1.119,2.5 -2.5,2.5h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-19.087c0,-2.299 1.054,-4.471 2.859,-5.893l14.212,-11.199c0.545,-0.428 1.313,-0.428 1.857,0l14.214,11.199c1.805,1.422 2.858,3.593 2.858,5.891v19.089c0,1.381 -1.119,2.5 -2.5,2.5z"></path></g></g></svg>
       </div> */}
-      <>Questions</>
       {(currentQuestion)&&(<QuestionTile
         question={currentQuestion.question}
         answers={currentQuestion.answers}

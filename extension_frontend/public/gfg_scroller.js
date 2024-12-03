@@ -18,7 +18,10 @@
         console.error(`Heading "${heading}" not found.`);
       }
     };
-  
-    // Example usage
-    scrollToHeading("Django Templates"); // yaha rakho heading ko.....
+    chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
+      if(message.type==="SCROLL"){
+        console.log(message)
+        scrollToHeading(message.data);
+      }
+    })
   })();

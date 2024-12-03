@@ -18,5 +18,11 @@
         console.error(`Heading "${heading}" not found.`);
       }
     };
-    scrollToHeading("Cookbook"); // yaha rakho heading ko.....
+    chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
+      if(message.type==="SCROLL"){
+        console.log(message)
+        sendResponse(true);
+        scrollToHeading(message.data);
+      }
+    })
   })();
