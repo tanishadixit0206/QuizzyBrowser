@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/QuestionTile.css";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
+import "../styles/LanguageDropdown.css"
 
 interface QuestionTileProps {
   question: string;
@@ -33,6 +34,7 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
   removeFromBookmarks,
 }) => {
   const [timeLeft, setTimeLeft] = useState(60);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
 
 
   useEffect(() => {
@@ -58,6 +60,14 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
     }
   };
 
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLanguage(event.target.value);
+  };
+
+  const translate = () => {
+    
+    console.log(`Translating to ${selectedLanguage}`);
+};
   return (
     <div className="question-tile-container">
       <div 
@@ -138,6 +148,29 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
               <span className="text-green-600 text-lg font-bold">{correctAnswer}</span>
             </p>
             <p className="text-gray-700 text-lg italic">{explanation}</p>
+            <div className="flex space-between mt-1 items-center">
+                            <button
+                                className=" bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border"
+                                onClick={translate}
+                            >
+                                Translate
+                            </button>
+                            <div className="dropdown-container">
+                                <select className="dropdown-select" onChange={handleLanguageChange} value={selectedLanguage}>
+                                    <option value="en">English (en)</option>
+                                    <option value="zh-CN">Mandarin Chinese (zh; simplified)</option>
+                                    <option value="zh-TW">Taiwanese Mandarin (zh-Hant; traditional)</option>
+                                    <option value="ja">Japanese (ja)</option>
+                                    <option value="pt">Portuguese (pt)</option>
+                                    <option value="ru">Russian (ru)</option>
+                                    <option value="es">Spanish (es)</option>
+                                    <option value="tr">Turkish (tr)</option>
+                                    <option value="hi">Hindi (hi)</option>
+                                    <option value="vi">Vietnamese (vi)</option>
+                                    <option value="bn">Bengali (bn)</option>
+                                </select>
+                            </div>
+                            </div>         
           </div>
         </div>
       </div>
