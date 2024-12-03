@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getQuestions from '../api/getQuestions';
 import QuestionTile from "../components/QuestionTile";
+// import {gfgExtractor} from '../utils/scraping/final_gfg';
 
 // Define TypeScript types
 type Question = {
@@ -17,87 +18,12 @@ type ApiResponse = {
   questions: Question[];
   
 };
-// type UserAnswer = {
-//   questionId: number;
-//   selectedAnswer: string | null;
-// };
 
 // Mock data with quiz title
 const apiResponse: ApiResponse = {
   title: "General Knowledge Quiz",
   questions:[],
-  // questions: [
-  //   {
-  //     id: 1,
-  //     question: "What is the capital of France?",
-  //     answers: ["Paris", "London", "Berlin", "Rome"],
-  //     correctAnswer: "Paris",
-  //     explanation: "Paris is the capital city of France, known for its history, culture, and landmarks like the Eiffel Tower."
-  //   },
-  //   {
-  //     id: 2,
-  //     question: "Which planet is known as the Red Planet?",
-  //     answers: ["Earth", "Mars", "Venus", "Jupiter"],
-  //     correctAnswer: "Mars",
-  //     explanation: "Mars is called the Red Planet due to its reddish appearance, caused by iron oxide (rust) on its surface."
-  //   },
-  //   {
-  //     id: 3,
-  //     question: "What is the chemical symbol for water?",
-  //     answers: ["H2O", "O2", "CO2", "H2"],
-  //     correctAnswer: "H2O",
-  //     explanation: "H2O represents water, consisting of two hydrogen atoms bonded to one oxygen atom."
-  //   },
-    // {
-    //   id: 4,
-    //   question: "Who wrote 'Romeo and Juliet'?",
-    //   answers: ["William Shakespeare", "Charles Dickens", "J.K. Rowling", "George Orwell"],
-    //   correctAnswer: "William Shakespeare",
-    //   explanation: "William Shakespeare, an English playwright, authored 'Romeo and Juliet,' a famous romantic tragedy."
-    // },
-    // {
-    //   id: 5,
-    //   question: "Which is the smallest prime number?",
-    //   answers: ["1", "2", "3", "5"],
-    //   correctAnswer: "2",
-    //   explanation: "2 is the smallest prime number as it is only divisible by 1 and itself and is also the only even prime number."
-    // },
-    // {
-    //   id: 6,
-    //   question: "What is the square root of 64?",
-    //   answers: ["6", "7", "8", "9"],
-    //   correctAnswer: "8",
-    //   explanation: "The square root of 64 is 8 because 8 × 8 = 64."
-    // },
-    // {
-    //   id: 7,
-    //   question: "What is the largest mammal?",
-    //   answers: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
-    //   correctAnswer: "Blue Whale",
-    //   explanation: "The Blue Whale is the largest mammal, growing up to 100 feet long and weighing over 200 tons."
-    // },
-    // {
-    //   id: 8,
-    //   question: "Which gas do plants absorb for photosynthesis?",
-    //   answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-    //   correctAnswer: "Carbon Dioxide",
-    //   explanation: "Plants absorb carbon dioxide from the atmosphere to produce oxygen and glucose during photosynthesis."
-    // },
-    // {
-    //   id: 9,
-    //   question: "Who painted the Mona Lisa?",
-    //   answers: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
-    //   correctAnswer: "Leonardo da Vinci",
-    //   explanation: "Leonardo da Vinci, an Italian Renaissance artist, painted the Mona Lisa, one of the most famous artworks in the world."
-    // },
-    // {
-    //   id: 10,
-    //   question: "What is the value of Pi up to two decimal places?",
-    //   answers: ["3.12", "3.14", "3.16", "3.18"],
-    //   correctAnswer: "3.14",
-    //   explanation: "Pi is an irrational number used to calculate circles' properties, commonly approximated as 3.14."
-    // }
-  // ]
+
 };
 
 // Mock API Response Example
@@ -113,16 +39,17 @@ const QuestionsPage = () => {
   const [questions,setQuestions]:[Question[]|null,(questions:Question[]|null)=>void]=useState<Question[]|null>(null);
   const [loading,setLoading]=useState(true);
   const [currentQuestion,setCurrentQuestion]=useState<Question|null>(null);
-
+  const [scrapedData,setScrapedData]=useState<{[heading:string]:string}|null>(null);
+  
   const getGeneratedQuestions=async (text:string)=>{
     const questionsText= await getQuestions(text);
-    console.log("this is the response",questionsText)
+    // console.log("this is the response",questionsText)
     console.log("trying to get question1")
     // console.log(questionsText?.split("1.")[1].split("?")[0]+"?")
     const parseAnswer = (text: string, prefix: string[],index:number): string | null => {
       for (const p of prefix) {
-        if (text.includes(p)) {
-          return text.split(p)[index].split("\n")[0];
+        if (text?.includes(p)) {
+          return text?.split(p)[index]?.split("\n")[0];
         }
       }
       return null;
@@ -132,8 +59,8 @@ const QuestionsPage = () => {
       for (const p of prefix){
         const correctAnswer=text?.split("Correct Answer:")[index]?.split("\n")[0]?.trim()
         console.log("Correct Answer with option: ", correctAnswer)
-        if(correctAnswer.includes(p)){
-          const correctOption=p[0].toLowerCase();
+        if(correctAnswer?.includes(p)){
+          const correctOption=p[0]?.toLowerCase();
           console.log("Correct Option: ",correctOption)
           if(correctOption==='a'){
             return answers[0];
@@ -153,8 +80,8 @@ const QuestionsPage = () => {
     const parseQuestion = (text: string,delimiters:string[]): string => {
       // const delimiters = ["1.", "1:"];
       for (const delimiter of delimiters) {
-        if (text.includes(delimiter)) {
-          return text.split(delimiter)[1].split("?")[0] + "?";
+        if (text?.includes(delimiter)) {
+          return text?.split(delimiter)[1]?.split("?")[0] + "?";
         }
       }
       return "Question not found.";
@@ -194,91 +121,50 @@ const QuestionsPage = () => {
       ])|| "Correct answer not found.",
       explanation: questionsText?.split("Explanation:")[2]?.split("\n")[0]?.trim() || "Explanation not found.",
     };
-    // const question2:Question={
-    //   id:2,
-    //   question:questionsText?.split("2.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[2].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[2].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[2].split('\n')}`,
-    // }
-    // const question3:Question={
-    //   id:1,
-    //   question:questionsText?.split("3.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[3].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[3].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[3].split('\n')}`,
-    // }
-    // const question4:Question={
-    //   id:1,
-    //   question:questionsText?.split("4.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[4].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[4].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[4].split('\n')}`,
-    // }
-    // const question5:Question={
-    //   id:1,
-    //   question:questionsText?.split("5.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[5].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[5].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[5].split('\n')}`,
-    // }
-    // const question6:Question={
-    //   id:1,
-    //   question:questionsText?.split("6.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[6].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[6].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[6].split('\n')}`,
-    // }
-    // const question7:Question={
-    //   id:1,
-    //   question:questionsText?.split("7.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[7].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[7].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[7].split('\n')}`,
-    // }
-    // const question8:Question={
-    //   id:1,
-    //   question:questionsText?.split("8.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[8].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[8].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[8].split('\n')}`,
-    // }
-    // const question9:Question={
-    //   id:1,
-    //   question:questionsText?.split("9.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[9].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[9].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[9].split('\n')}`,
-    // }
-    // const question10:Question={
-    //   id:1,
-    //   question:questionsText?.split("10.")[1].split("?")[0]+"?",
-    //   answers:[`${questionsText?.split("a) ")[10].split(".")[0]+"."}`,`${questionsText?.split("b) ")[1].split(".")[0]+"."}`,`${questionsText?.split("c) ")[1].split(".")[0]+"."}`,`${questionsText?.split("d) ")[1].split(".")[0]+"."}`],
-    //   correctAnswer:`${questionsText?.split('Correct Answer:')[10].split('\n')[0]}`,
-    //   explanation:`${questionsText?.split('Explanation:')[10].split('\n')}`,
-    // }
     return [question1,question2,];
   }
   
   useEffect(()=>{
     const fetchQuestions=async ()=>{
-      const questionsGenerated= await getGeneratedQuestions(`JavaScript Hoisting is the behavior where the interpreter moves function and variable declarations to the top of their respective scope before executing the code. This allows variables to be accessed before declaration, aiding in more flexible coding practices and avoiding “undefined” errors during execution.
+      console.log("This is the scraped Data: ",scrapedData)
+      let questionsGenerated:Question[]|null=null;
+      if(scrapedData){
+        console.log("getting Questions")
+        for (const heading of Object.keys(scrapedData)){
+          console.log("This is the heading of my array",heading)
+          const content = scrapedData[heading];
+          console.log("This is my content",content)
+          if (questionsGenerated) {
+            const newQuestions = await getGeneratedQuestions(content);
+            console.log("This is the question generated in this iteration",newQuestions)
+            questionsGenerated.push(...newQuestions);
+            console.log("These are the questions generated till now",questionsGenerated)
+        }else{
+            console.log("This is my first element",content)
+            questionsGenerated = await getGeneratedQuestions(content);
+            console.log("These are the questions generated till now",questionsGenerated)
+        }
+        }
 
-        What is Hoisting in JavaScript?
-        Hoisting is the default behavior in JavaScript where variable and function declarations are moved to the top of their respective scopes during the compilation phase. This guarantees that regardless of where these declarations appear within a scope, they can be accessed throughout that scope.
-        
-        Features of Hoisting
-        Declarations are hoisted, not initializations.
-        Allows calling functions before their declarations.
-        All variable and function declarations are processed before any code execution.
-        Undeclared variables are implicitly created as global variables when assigned a value.`)
+      }
         console.log('Questions generated are',questionsGenerated)
         setQuestions(questionsGenerated)
         console.log("Questions: ",questions)
-        setLoading(false)
-        console.log("Loading: ",loading)
     }
     fetchQuestions()
+  },[scrapedData])
+
+  useEffect(()=>{
+    if(questions){
+      setLoading(false)
+      console.log("Loading: ",loading)
+    }
+  },[questions])
+  useEffect(()=>{
+    chrome.runtime.sendMessage({type:"GET_DATA"},(response)=>{
+      console.log(response)
+      setScrapedData(response.data)
+    });
   },[])
   useEffect(()=>{
     setCurrentQuestion(questions?questions[currentQuestionIndex]:null);
@@ -376,7 +262,7 @@ const QuestionsPage = () => {
 
 
   return (
-    (loading)?<>Loading.....</>:(questions)?
+    (loading)?<>Loading.....</>:(questions&&scrapedData)?
     <div className="flex overflow-y-scroll custom-scroll flex-col h-auto w-auto px-4 py-4 transpDiv" style={{"background":"none"}}>
       {/* <div className="QuesHeadingDiv">
         <h1 className="QuestionsHeading">Questions - {apiResponse.title}</h1>

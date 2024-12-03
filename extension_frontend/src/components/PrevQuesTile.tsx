@@ -1,4 +1,4 @@
-import { AccordionItem } from "../utils/types.ts";
+import { AccordionItem } from "../type.ts";
 import { MdDelete } from "react-icons/md";
 
 const PrevQuesTile:React.FC<AccordionItem> = (props)=>{
