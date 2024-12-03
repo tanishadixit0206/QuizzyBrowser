@@ -11,7 +11,7 @@ const LandingPage:React.FC = () =>{
   function startInterview(){
     console.log(testStart);
     updateTestStart(true);
-    navigate('/questions')
+    navigate('/select-interview')
   }
 
   return (<>

@@ -44,7 +44,10 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     }
-  }, [timeLeft, showBack]);
+    else if (timeLeft === 0) {
+      onReveal();
+    }
+  }, [timeLeft, showBack, onReveal]);
 
   const timerWidth = `${(timeLeft / 60) * 100}%`;
   const handleBookmarkClick = () => {
@@ -54,7 +57,6 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
       addToBookmarks(question,correctAnswer);
     }
   };
-
 
   return (
     <div className="question-tile-container">
