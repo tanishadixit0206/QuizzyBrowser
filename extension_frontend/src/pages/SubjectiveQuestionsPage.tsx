@@ -235,10 +235,6 @@ const SubjectiveQuestionsPage = () => {
     //   answer === questions[index].correctAnswer
     // ).length;
     return no_correct;
-    // return selectedAnswers.filter((answer, index) => 
-    //   answer === questions[index].correctAnswer
-    // ).length;
-    return no_correct;
   };
   const addToBookmarks = (question:string,answer:string) => {
 
@@ -296,7 +292,6 @@ if(checkLoading){
   />
 
 }else{
-}else{
   if (quizCompleted) {
     const score = calculateScore();
     const totalQuestions = questions?.length;
@@ -322,7 +317,6 @@ if(checkLoading){
                 key={question.id} 
                 className={`p-3 rounded-lg ${
                   wasCorrect[index]
-                  wasCorrect[index]
                     ? 'bg-green-100' 
                     : 'bg-red-100'
                 }`}
@@ -331,7 +325,6 @@ if(checkLoading){
                 <p className="text-sm">
                   Your Answer: <span className={
                     wasCorrect[index]
-                    wasCorrect[index]
                       ? 'text-green-600' 
                       : 'text-red-600'
                   }>
@@ -339,7 +332,6 @@ if(checkLoading){
                   </span>
                 </p>
                 <p className="text-sm text-gray-600">
-                  Correct Answer: {correctAnswers[index]}
                   Correct Answer: {correctAnswers[index]}
                 </p>
               </div>
@@ -369,10 +361,8 @@ if(checkLoading){
       </div>
       <SubjectiveQuestionTile
         isCorrect={isCorrect}
-        isCorrect={isCorrect}
         question={questions[currentQuestionIndex].question}
         onAnswerChange={handleAnswerChange}
-        explanation={correctAns}
         explanation={correctAns}
         showBack={showBack}
         onReveal={handleReveal}
@@ -387,18 +377,9 @@ if(checkLoading){
 
         currentAnswer={currentAnswer}
          // Pass current answer to reset textarea
-        submitAns={(s:string)=>{
-          const current=[...submittedAns];
-          current.push(s);
-          setSubmittedAns(current);
-        }}
-
-        currentAnswer={currentAnswer}
-         // Pass current answer to reset textarea
       />
       {showBack && (
         <button
-          className="mt-0 bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border my-0"
           className="mt-0 bg-[blueviolet] text-lg text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-white hover:text-[blueviolet] hover:border-[blueviolet] hover:border-3 transition duration-200 border-transparent border my-0"
           onClick={handleNext}
         >
@@ -408,7 +389,6 @@ if(checkLoading){
     </div>:<>No questions fetched.....</>
   );
 };
-}
 }
 
 export default SubjectiveQuestionsPage;
