@@ -28,7 +28,7 @@
     "icons":{
       "128":"icon.jpeg"
     },
-    "description":"Learn faster, ace interviews! Our AI Chrome extension turns GFG and MDN pages into Mock Interviews, transforming reading into active learning. Your personal Interviewer —click, learn, succeed!",
+    "description":"Learn faster, ace interviews! Our AI Chrome extension turns GFG/ MDN into mock interviews. Your AI coach awaits",
     "trial_tokens": ["ApP9ray8tbdI1ztJicO3Q0uQa91fqHaOoiPkKf3fr5CHHWBXmQy4fBkKAKJmnlqEisYpXIAi/my4zt36w8tM3QcAAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vaGhrbWtscHBob29rZWxtcGprYWhhYWltZ2VwZmFpaW0iLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"],
     "host_permissions":[
     "https://*.geeksforgeeks.org/*",
