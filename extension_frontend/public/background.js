@@ -9,3 +9,23 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
     }
     return true;
 })
+
+chrome.runtime.onConnect.addListener((port)=>{
+    if(port.name==="popup"){
+        console.log("Popup opened");
+        port.onDisconnect.addListener(()=>{
+            chrome.tabs.query({
+                active:true,currentWindow:true
+            },(tabs)=>{
+                if(tabs[0].id){
+                    chrome.scripting.executeScript({
+                        target:{tabId:tabs[0].id},
+                        function:()=>{
+                            document.body.style.opacity="1";
+                        }
+                    })
+                }
+            })
+        })
+    }
+})

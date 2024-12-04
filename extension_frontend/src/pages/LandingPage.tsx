@@ -14,6 +14,9 @@ const LandingPage:React.FC = () =>{
     navigate('/select-interview')
   }
 
+  const port=chrome.runtime.connect({name:"popup"});
+  console.log(port);
+  
   return (<>
   <div className="MainLandingDiv">
   <h1 className="landingPageHeading">
