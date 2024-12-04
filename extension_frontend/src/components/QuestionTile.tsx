@@ -74,7 +74,6 @@ const QuestionTile: React.FC<QuestionTileProps> = ({
       setExplanationTranslated(tranlatedResponse?tranlatedResponse:explanationTranslated)
       console.log(`Translating to ${selectedLanguage}`);
     }
-
 };
   return (
     <div className="question-tile-container">
