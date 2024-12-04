@@ -1,13 +1,28 @@
 {
-  "manifest_version":3,
-  "name":"b27_extension",
-  "version":"1.0.0",
-  "action":{
-    "default_popup":"index.html"
-  },
-  "permissions":["scripting","storage"],
-  "host_permissions":[
-    "http://*/*",
-    "https://*/*"
-  ]
-}
+    "manifest_version":3,
+    "version":"1.0.0",
+    "name":"b27_extension",
+    "action":{
+      "default_popup":"index.html" 
+    },
+    "background":{
+      "service_worker":"background.js"
+    },
+    "content_scripts":[
+      {
+        "matches":["<all_urls>"],
+        "js":["final_gfg.js","mdn_scraper.js","mdn_scroller.js","gfg_scroller.js","backgroundBlur.js","audioRecorder.js"]
+      }
+    ],
+    "permissions":[
+      "scripting","storage",
+      "aiLanguageModelOriginTrial",
+      "activeTab",
+      "storage"
+    ],
+    "trial_tokens": ["ApP9ray8tbdI1ztJicO3Q0uQa91fqHaOoiPkKf3fr5CHHWBXmQy4fBkKAKJmnlqEisYpXIAi/my4zt36w8tM3QcAAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vaGhrbWtscHBob29rZWxtcGprYWhhYWltZ2VwZmFpaW0iLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"],
+    "host_permissions":[
+      "http://*/*",
+      "https://*/*"
+    ]
+  }

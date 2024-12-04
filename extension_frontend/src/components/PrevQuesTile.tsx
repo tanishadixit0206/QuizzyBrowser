@@ -1,4 +1,4 @@
-import { AccordianDataType, AccordionItem } from "../utils/types.ts";
+import { AccordianDataType, AccordionItem } from "../type.ts";
 import { MdDelete } from "react-icons/md";
 
 const PrevQuesTile:React.FC<AccordionItem> = (props)=>{
@@ -25,7 +25,7 @@ const PrevQuesTile:React.FC<AccordionItem> = (props)=>{
         console.error("Error saving updated bookmarks:", error);
       });
       chrome.storage.local.get(["saved_questions"]).then((result)=>{
-        let current_saved=result.saved_questions as AccordianDataType[];
+        const current_saved=result.saved_questions as AccordianDataType[];
         console.log("called")
         console.log(`result hai ${result.saved_questions}`)
         props.updateAccordianData(current_saved)

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PrevQuesTile from "../components/PrevQuesTile.tsx";
-import { AccordianDataType } from "../utils/types.ts";
+import { AccordianDataType } from "../type.ts";
 import { useNavigate } from "react-router-dom";
 const PreviousQuestions:React.FC = () => {
   const [openId , setOpenId] = useState<number|null>(null);
