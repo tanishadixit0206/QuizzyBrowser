@@ -1,5 +1,4 @@
 let data=null;
-let audioBlob=null;
 let arrayBuffer=null;
 chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
     if(message.type==="GFG_CONTENT_EXTRACTED"||message.type==="MDN_CONTENT_EXTRACTED"){
@@ -14,13 +13,12 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
 
 chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>{
     if(message.type==="AUDIO"){
-        arrayBuffer = new Uint8Array(message.data).buffer;
-        audioBlob = new Blob([arrayBuffer], { type: message.mimeType });
-        console.log("Audio blob: ",audioBlob)
+        arrayBuffer=message.data
+        console.log("Audio Array: ",arrayBuffer)
         // const audio=new Audio(audioUrl);
         // console.log("Audio: ",audio);
     }else if(message.type==="GET_AUDIO"){
-        sendResponse({data:audioBlob});
+        sendResponse({data:arrayBuffer});
     }
 })
 

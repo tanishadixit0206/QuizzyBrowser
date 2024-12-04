@@ -48,7 +48,9 @@ const SubjectiveQuestionTile: React.FC<SubjectiveQuestionTileProps> = ({
   useEffect(()=>{
     chrome.runtime.sendMessage({type:"GET_AUDIO"},(response)=>{
       console.log("Response of get audio",response)
-      setAudio(response.data)
+      const arrayBuffer = new Uint8Array(response.data).buffer;
+      const audioBlob = new Blob([arrayBuffer], { type: "audio/webm" });
+      setAudio(audioBlob)
     });
   },[isRecording])
 
